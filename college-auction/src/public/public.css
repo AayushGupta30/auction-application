@@ -1,0 +1,211 @@
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+.public-container {
+  padding: 24px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 600;
+}
+
+/* ---------- HERO KPIs ---------- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #ffffff, #f1f3f6);
+  padding: 18px;
+  border-radius: 10px;
+}
+
+.hero-card h3 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.hero-card h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+/* ---------- TEAM SECTIONS ---------- */
+.team-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 26px;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.team-header img {
+  width: 42px;
+  height: 42px;
+  margin-right: 12px;
+}
+
+.team-header h2 {
+  margin: 0;
+}
+
+/* ---------- PURSE METER ---------- */
+.meter {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.meter-fill {
+  height: 100%;
+  background: #1976d2;
+  transition: width 0.6s ease;
+}
+
+/* ---------- TEAM KPIs ---------- */
+.team-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.team-kpi {
+  font-size: 13px;
+  color: #444;
+}
+
+/* ---------- PLAYER CARDS ---------- */
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.player-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  background: #fafafa;
+}
+
+.player-card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 6px;
+}
+
+.player-card h4 {
+  margin: 4px 0 2px 0;
+  font-size: 13px;
+}
+
+.player-card span {
+  font-size: 12px;
+  color: #555;
+}
+
+/* ---------- RECENT AUCTIONS ---------- */
+.table-container {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.auction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.auction-table th,
+.auction-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.auction-table th {
+  background: #f1f1f1;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  margin-top: 18px;
+}
+/* ---------- TEAM TABS ---------- */
+.team-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.team-tab {
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #e0e0e0;
+  font-size: 14px;
+}
+
+.team-tab.active {
+  background: #1976d2;
+  color: white;
+}
+
+/* ---------- CATEGORY BADGES ---------- */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.badge-Platinum { background: #e5e4e2; }
+.badge-Diamond { background: #b9f2ff; }
+.badge-Gold { background: #ffd700; }
+.badge-Silver { background: #c0c0c0; }
+
+/* ---------- HERO CARD FIX ---------- */
+.hero-card {
+  max-width: 420px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- SEARCH ---------- */
+.search-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.search-row input,
+.search-row select {
+  padding: 6px;
+  font-size: 14px;
+}
