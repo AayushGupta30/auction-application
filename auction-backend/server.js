@@ -1,18 +1,32 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
-app.use(cors());
+// ===============================
+// ENV VALIDATION
+// ===============================
+const ADMIN_USER = process.env.ADMIN_USER;
+const ADMIN_PASS = process.env.ADMIN_PASS;
+
+if (!ADMIN_USER || !ADMIN_PASS) {
+  throw new Error("ADMIN_USER and ADMIN_PASS must be set");
+}
+
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
+
+// ===============================
+// MIDDLEWARE
+// ===============================
+app.use(cors({ origin: CORS_ORIGIN }));
 app.use(express.json());
 
 // ===============================
-// BASIC AUTH CONFIG
+// BASIC AUTH
 // ===============================
-const ADMIN_USER = process.env.ADMIN_USER || "admin";
-const ADMIN_PASS = process.env.ADMIN_PASS || "auction123";
-
 function basicAuth(req, res, next) {
   const auth = req.headers.authorization;
 
@@ -43,18 +57,15 @@ let auditLog = [];
 // ===============================
 // ROUTES
 // ===============================
-
 app.get("/", (req, res) => {
   res.send("Auction backend running");
 });
 
-// Admin writes state
 app.post("/state", basicAuth, (req, res) => {
   auctionState = req.body;
   res.json({ status: "ok" });
 });
 
-// Public reads state
 app.get("/state", (req, res) => {
   if (!auctionState) {
     return res.json({ status: "waiting" });
@@ -62,9 +73,6 @@ app.get("/state", (req, res) => {
   res.json(auctionState);
 });
 
-// ===============================
-// UNDO LAST SALE (ADMIN ONLY)
-// ===============================
 app.post("/undo-last-sale", basicAuth, (req, res) => {
   if (!auctionState || auctionState.soldHistory.length === 0) {
     return res.status(400).json({ error: "No sale to undo" });
@@ -84,19 +92,15 @@ app.post("/undo-last-sale", basicAuth, (req, res) => {
     return res.status(500).json({ error: "Inconsistent state" });
   }
 
-  // Reverse player
   player.status = "UNSOLD";
   player.soldTo = null;
   player.soldPrice = null;
 
-  // Reverse team
   team.remainingPurse += lastSale.price;
   team.players = team.players.filter((id) => id !== player.id);
 
-  // Remove from sold history
   auctionState.soldHistory.shift();
 
-  // Audit entry
   auditLog.unshift({
     action: "UNDO_SALE",
     playerName: lastSale.playerName,
@@ -105,18 +109,13 @@ app.post("/undo-last-sale", basicAuth, (req, res) => {
     timestamp: new Date().toISOString()
   });
 
-  res.json({
-    status: "undone",
-    undoneSale: lastSale
-  });
+  res.json({ status: "undone", undoneSale: lastSale });
 });
 
-// Optional: view audit log (admin only)
 app.get("/audit-log", basicAuth, (req, res) => {
   res.json(auditLog);
 });
 
-// Reset (testing only)
 app.delete("/state", basicAuth, (req, res) => {
   auctionState = null;
   auditLog = [];
