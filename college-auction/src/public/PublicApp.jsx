@@ -1,3 +1,5 @@
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 import { useEffect, useState } from "react";
 import "./public.css";
 
@@ -8,7 +10,7 @@ export default function PublicApp() {
   const [teamFilter, setTeamFilter] = useState("");
 
   function fetchState() {
-    fetch("http://localhost:4000/state")
+    fetch(`${API_BASE}/state`)
       .then(res => res.json())
       .then(data => {
         if (data && data.players) {

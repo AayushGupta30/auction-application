@@ -1,3 +1,5 @@
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 import { useEffect, useState } from "react";
 import "./admin.css";
 
@@ -49,11 +51,13 @@ export default function AdminApp() {
     saveAuctionState(auctionState);
 
     // Push to backend
-    fetch("http://localhost:4000/state", {
+    fetch(`${API_BASE}/state`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Basic " + btoa("admin:auction123")
+        "Authorization": "Basic " + btoa(
+  `${import.meta.env.VITE_ADMIN_USER}:${import.meta.env.VITE_ADMIN_PASS}`
+)
       },
       body: JSON.stringify(auctionState)
     }).catch(() => {});
@@ -67,10 +71,12 @@ export default function AdminApp() {
 
     if (!confirmUndo) return;
 
-    fetch("http://localhost:4000/undo-last-sale", {
+    fetch(`${API_BASE}/undo-last-sale`, {
       method: "POST",
       headers: {
-        "Authorization": "Basic " + btoa("admin:auction123")
+        "Authorization": "Basic " + btoa(
+  `${import.meta.env.VITE_ADMIN_USER}:${import.meta.env.VITE_ADMIN_PASS}`
+)
       }
     })
       .then((res) => {
@@ -79,7 +85,7 @@ export default function AdminApp() {
       })
       .then(() => {
         // Refresh state from backend
-        fetch("http://localhost:4000/state")
+        fetch(`${API_BASE}/state`)
           .then((r) => r.json())
           .then(setAuctionState);
       })
