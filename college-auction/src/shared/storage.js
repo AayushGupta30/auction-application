@@ -14,15 +14,6 @@ export function saveAuctionState(state) {
   try {
     const serialized = JSON.stringify(state);
     localStorage.setItem(AUCTION_STORAGE_KEY, serialized);
-
-    // Publish to public/state.json (static hosting safe trick)
-    fetch("/state.json", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: serialized
-    }).catch(() => {
-      // Ignore in dev / GH Pages
-    });
   } catch (e) {
     console.error("Failed to save auction state", e);
   }

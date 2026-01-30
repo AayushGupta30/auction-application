@@ -1,137 +1,693 @@
-body {
+/* ==================== FONTS ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap');
+
+/* ==================== ROOT VARIABLES ==================== */
+:root {
+  --color-primary: #ff3366;
+  --color-secondary: #00d4ff;
+  --color-tertiary: #ffd700;
+  --color-dark: #0a0e27;
+  --color-surface: #1a1f3a;
+  --color-surface-light: #252b47;
+  --color-text: #e8ecf5;
+  --color-text-muted: #9099b7;
+  --color-border: #2d3555;
+  
+  --gradient-primary: linear-gradient(135deg, #ff3366 0%, #ff6b9d 100%);
+  --gradient-secondary: linear-gradient(135deg, #00d4ff 0%, #00a6cc 100%);
+  --gradient-tertiary: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+  --gradient-dark: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 100%);
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow-primary: 0 0 20px rgba(255, 51, 102, 0.4);
+  --shadow-glow-secondary: 0 0 20px rgba(0, 212, 255, 0.4);
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* ==================== GLOBAL RESET ==================== */
+* {
   margin: 0;
-  font-family: Inter, Arial, sans-serif;
-  background: #f4f6f8;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--color-dark);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ==================== LOADING STATE ==================== */
+.loading-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-dark);
+}
+
+.loading-pulse {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  animation: pulse 2s ease-in-out infinite;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.loading-container h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--color-text);
+}
+
+/* ==================== MAIN CONTAINER ==================== */
 .public-container {
-  padding: 24px;
+  min-height: 100vh;
+  position: relative;
+  background: var(--color-dark);
 }
 
+.bg-decoration {
+  position: fixed;
+  top: -50%;
+  right: -25%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 51, 102, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* ==================== HEADER ==================== */
 .header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 48px;
+  position: relative;
 }
 
-.header h1 {
-  margin: 0;
-  font-size: 34px;
-  font-weight: 600;
+.header-badge {
+  display: inline-block;
+  background: var(--gradient-primary);
+  color: white;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  animation: liveBadge 2s ease-in-out infinite;
+  box-shadow: var(--shadow-glow-primary);
 }
 
-/* ---------- HERO KPIs ---------- */
+@keyframes liveBadge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title-accent {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-secondary);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.title-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.header-subtitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  color: var(--color-text-muted);
+  margin-top: 12px;
+  letter-spacing: 1px;
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-section {
+  margin-bottom: 48px;
+}
+
 .hero-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-  margin-bottom: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
 }
 
 .hero-card {
-  background: linear-gradient(135deg, #ffffff, #f1f3f6);
-  padding: 18px;
-  border-radius: 10px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.6s ease-out backwards;
 }
 
-.hero-card h3 {
-  margin: 0 0 6px 0;
-  font-size: 14px;
-  color: #555;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.hero-card h2 {
-  margin: 0;
-  font-size: 22px;
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
 }
 
-/* ---------- TEAM SECTIONS ---------- */
+.hero-card:hover::before {
+  transform: scaleX(1);
+}
+
+.hero-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.hero-card-primary::before { background: var(--gradient-primary); }
+.hero-card-secondary::before { background: var(--gradient-secondary); }
+.hero-card-tertiary::before { background: var(--gradient-tertiary); }
+
+.hero-icon {
+  font-size: 48px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.hero-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.hero-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 1px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-card-secondary .hero-price {
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-card-tertiary .hero-price {
+  background: var(--gradient-tertiary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==================== TEAM SELECTOR ==================== */
+.team-selector {
+  margin-bottom: 32px;
+}
+
+.team-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.team-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  animation: fadeIn 0.5s ease-out backwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.team-tab:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.team-tab.active {
+  background: var(--gradient-primary);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-glow-primary);
+  color: white;
+}
+
+.team-tab-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.team-tab-name {
+  font-weight: 700;
+}
+
+/* ==================== TEAM SECTION ==================== */
 .team-section {
-  background: #fff;
-  border-radius: 12px;
-  padding: 18px;
-  margin-bottom: 26px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
 }
 
 .team-header {
   display: flex;
   align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.team-logo-wrapper {
+  position: relative;
+}
+
+.team-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 3px solid var(--color-border);
+  padding: 8px;
+  background: var(--color-surface-light);
+  box-shadow: var(--shadow-md);
+}
+
+.team-info {
+  flex: 1;
+}
+
+.team-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.team-stats-inline {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  padding: 6px 14px;
+  background: var(--color-surface-light);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+/* ==================== PURSE SECTION ==================== */
+.purse-section {
+  margin-bottom: 32px;
+}
+
+.purse-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 12px;
 }
 
-.team-header img {
-  width: 42px;
-  height: 42px;
-  margin-right: 12px;
+.purse-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-text-muted);
 }
 
-.team-header h2 {
-  margin: 0;
+.purse-percentage {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--color-primary);
+  letter-spacing: 1px;
 }
 
-/* ---------- PURSE METER ---------- */
 .meter {
-  height: 10px;
-  background: #e0e0e0;
-  border-radius: 6px;
+  height: 16px;
+  background: var(--color-surface-light);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  margin: 10px 0;
+  position: relative;
+  border: 1px solid var(--color-border);
+  margin-bottom: 12px;
 }
 
 .meter-fill {
   height: 100%;
-  background: #1976d2;
-  transition: width 0.6s ease;
+  background: var(--gradient-primary);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
 }
 
-/* ---------- TEAM KPIs ---------- */
-.team-kpis {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 10px;
-  margin-bottom: 14px;
+.meter-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  filter: blur(8px);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
 }
 
-.team-kpi {
-  font-size: 13px;
-  color: #444;
+.purse-details {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--color-text-muted);
 }
 
-/* ---------- PLAYER CARDS ---------- */
+.purse-spent {
+  color: var(--color-primary);
+}
+
+.purse-remaining {
+  color: var(--color-secondary);
+}
+
+/* ==================== PLAYER GRID ==================== */
 .player-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
 }
 
 .player-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 8px;
+  background: var(--color-surface-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  animation: scaleIn 0.5s ease-out backwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.player-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.player-image-wrapper {
+  position: relative;
+  padding-top: 100%;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-light) 100%);
+}
+
+.player-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--color-border);
+}
+
+.category-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-sm);
+}
+
+.badge-Platinum {
+  background: linear-gradient(135deg, #e5e4e2 0%, #c0c0c0 100%);
+  color: #1a1a1a;
+}
+
+.badge-Diamond {
+  background: linear-gradient(135deg, #b9f2ff 0%, #69d2e7 100%);
+  color: #0a3d4a;
+}
+
+.badge-Gold {
+  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+  color: #4a3600;
+}
+
+.badge-Silver {
+  background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+  color: #2a2a2a;
+}
+
+.player-details {
+  padding: 12px;
   text-align: center;
-  background: #fafafa;
 }
 
-.player-card img {
-  width: 60px;
-  height: 60px;
+.player-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
   margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.player-card h4 {
-  margin: 4px 0 2px 0;
-  font-size: 13px;
+.player-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--color-primary);
 }
 
-.player-card span {
-  font-size: 12px;
-  color: #555;
+/* ==================== AUCTIONS SECTION ==================== */
+.auctions-section {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 32px;
 }
 
-/* ---------- RECENT AUCTIONS ---------- */
-.table-container {
-  background: white;
-  border-radius: 10px;
-  padding: 16px;
+.auctions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.auctions-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: var(--color-text);
+}
+
+.search-controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.search-input {
+  font-family: 'Outfit', sans-serif;
+  padding: 10px 12px 10px 40px;
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: 14px;
+  width: 240px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 51, 102, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.team-filter-select {
+  font-family: 'Outfit', sans-serif;
+  padding: 10px 16px;
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.team-filter-select:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+/* ==================== TABLE ==================== */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
 }
 
 .auction-table {
@@ -139,73 +695,179 @@ body {
   border-collapse: collapse;
 }
 
-.auction-table th,
-.auction-table td {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
-}
-
 .auction-table th {
-  background: #f1f1f1;
+  background: var(--color-surface-light);
+  padding: 16px;
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-border);
 }
 
+.auction-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.auction-table tbody tr {
+  transition: all 0.2s ease;
+  animation: tableRowFade 0.4s ease-out backwards;
+}
+
+@keyframes tableRowFade {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.auction-table tbody tr:hover {
+  background: var(--color-surface-light);
+}
+
+.player-cell {
+  font-weight: 600;
+}
+
+.team-cell {
+  color: var(--color-text-muted);
+}
+
+.price-cell {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: var(--color-primary);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.table-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ==================== FOOTER ==================== */
 .footer {
   text-align: center;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Mono', monospace;
   font-size: 12px;
-  color: #666;
-  margin-top: 18px;
-}
-/* ---------- TEAM TABS ---------- */
-.team-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 14px;
+  color: var(--color-text-muted);
 }
 
-.team-tab {
-  padding: 8px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  background: #e0e0e0;
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+.footer-text {
+  font-family: 'Outfit', sans-serif;
   font-size: 14px;
+  color: var(--color-text-muted);
 }
 
-.team-tab.active {
-  background: #1976d2;
-  color: white;
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .title-main {
+    font-size: 48px;
+  }
+  
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .team-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  
+  .team-tab {
+    flex-shrink: 0;
+  }
+  
+  .team-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .auctions-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .search-controls {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .team-filter-select {
+    width: 100%;
+  }
+  
+  .auction-table {
+    font-size: 13px;
+  }
+  
+  .auction-table th,
+  .auction-table td {
+    padding: 12px 8px;
+  }
 }
 
-/* ---------- CATEGORY BADGES ---------- */
-.badge {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  margin-top: 4px;
-}
-
-.badge-Platinum { background: #e5e4e2; }
-.badge-Diamond { background: #b9f2ff; }
-.badge-Gold { background: #ffd700; }
-.badge-Silver { background: #c0c0c0; }
-
-/* ---------- HERO CARD FIX ---------- */
-.hero-card {
-  max-width: 420px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ---------- SEARCH ---------- */
-.search-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.search-row input,
-.search-row select {
-  padding: 6px;
-  font-size: 14px;
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 20px 16px;
+  }
+  
+  .title-main {
+    font-size: 36px;
+  }
+  
+  .team-section,
+  .auctions-section {
+    padding: 20px;
+  }
+  
+  .player-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
 }

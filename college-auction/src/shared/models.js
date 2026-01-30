@@ -50,3 +50,21 @@ export function createInitialTeams() {
     }
   ];
 }
+export const TEAM_META = {
+  "Red Hawks": {
+    logo: "https://assets.scorebooklive.com/uploads/production/school/13663/image/redhawks.png",
+    colorClass: "red-hawks"
+  },
+  "Blue Beast": {
+    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmWNI6MBpoUf1MBGW0TXTGEd5kwzMWp508oQ&s",
+    colorClass: "blue-beast"
+  },
+  "White Walkers": {
+    logo: "https://i.pinimg.com/474x/5f/35/cb/5f35cb4d592cf7d2cbb4c1103ce31bf8.jpg",
+    colorClass: "white-walkers"
+  },
+  "Black Panthers": {
+    logo: "https://i.pinimg.com/1200x/36/f7/44/36f7440dc0ab37648058ebe29c53db87.jpg",
+    colorClass: "black-panthers"
+  }
+};
