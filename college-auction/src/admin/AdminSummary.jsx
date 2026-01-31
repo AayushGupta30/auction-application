@@ -94,14 +94,14 @@ export default function AdminSummary({ auctionState }) {
 
 function getCategoryIcon(category) {
   switch (category) {
-    case "Platinum":
+    case "Marquee":
       return "💎";
-    case "Diamond":
+    case "A":
       return "🔷";
-    case "Gold":
-      return "🥇";
-    case "Silver":
-      return "🥈";
+    case "B":
+      return "🟢";
+    case "C":
+      return "🔵";
     default:
       return "•";
   }
