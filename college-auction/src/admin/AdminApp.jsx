@@ -9,6 +9,7 @@ import {
   getNextCategory,
   getSkippedPlayer
 } from "../shared/auctionLogic";
+import { CATEGORY_ORDER } from "../shared/constants";
 
 import AdminControl from "./AdminControl";
 import AdminSummary from "./AdminSummary";
@@ -127,9 +128,20 @@ export default function AdminApp() {
   // ===============================
   // DRAW / FINALIZE / SKIP
   // ===============================
+  function changeCategory(newCategory) {
+    setAuctionState((prev) => ({
+      ...prev,
+      meta: {
+        ...prev.meta,
+        currentCategory: newCategory
+      }
+    }));
+  }
+
   function drawNextPlayer() {
     setAuctionState((prev) => {
-      let category = prev.meta.currentCategory;
+      // Start with current category, or default to first category if none set
+      let category = prev.meta.currentCategory || CATEGORY_ORDER[0];
       let player = getRandomUnsoldPlayer(prev.players, category);
 
       while (!player) {
@@ -282,6 +294,7 @@ export default function AdminApp() {
             auctionState={auctionState}
             drawNextPlayer={drawNextPlayer}
             finalizeSale={finalizeSale}
+            changeCategory={changeCategory}
           />
           <AdminSummary auctionState={auctionState} />
         </div>

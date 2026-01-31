@@ -242,6 +242,8 @@ body {
   margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .panel-title {
@@ -259,6 +261,62 @@ body {
 .panel-icon {
   font-size: 24px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Header Controls */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.category-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-surface-light);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.category-selector-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.category-select {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.category-select:hover {
+  border-color: var(--color-primary);
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
+}
+
+.category-select option {
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
 /* ==================== CONTROL PANEL ==================== */
@@ -376,10 +434,10 @@ body {
   letter-spacing: 1px;
 }
 
-.pill-platinum { background: linear-gradient(135deg, #e5e4e2 0%, #c0c0c0 100%); color: #1a1a1a; }
-.pill-diamond { background: linear-gradient(135deg, #b9f2ff 0%, #69d2e7 100%); color: #0a3d4a; }
-.pill-gold { background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%); color: #4a3600; }
-.pill-silver { background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%); color: #2a2a2a; }
+.pill-marquee { background: linear-gradient(135deg, #ff0080 0%, #ff4da6 100%); color: #fff; }
+.pill-a { background: linear-gradient(135deg, #00d4ff 0%, #0088ff 100%); color: #fff; }
+.pill-b { background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%); color: #0a1a0f; }
+.pill-c { background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%); color: #4a3600; }
 
 .player-image-container {
   position: relative;
@@ -692,10 +750,10 @@ body {
   transition: width 0.6s ease;
 }
 
-.category-platinum { background: linear-gradient(90deg, #e5e4e2 0%, #c0c0c0 100%); }
-.category-diamond { background: linear-gradient(90deg, #b9f2ff 0%, #69d2e7 100%); }
-.category-gold { background: linear-gradient(90deg, #ffd700 0%, #ffaa00 100%); }
-.category-silver { background: linear-gradient(90deg, #c0c0c0 0%, #a0a0a0 100%); }
+.category-marquee { background: linear-gradient(90deg, #ff0080 0%, #ff4da6 100%); }
+.category-a { background: linear-gradient(90deg, #00d4ff 0%, #0088ff 100%); }
+.category-b { background: linear-gradient(90deg, #00ff88 0%, #00cc6a 100%); }
+.category-c { background: linear-gradient(90deg, #ffd700 0%, #ffaa00 100%); }
 
 /* ==================== HISTORY PANEL ==================== */
 .history-panel {
@@ -832,10 +890,10 @@ body {
   letter-spacing: 0.5px;
 }
 
-.badge-platinum { background: linear-gradient(135deg, #e5e4e2 0%, #c0c0c0 100%); color: #1a1a1a; }
-.badge-diamond { background: linear-gradient(135deg, #b9f2ff 0%, #69d2e7 100%); color: #0a3d4a; }
-.badge-gold { background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%); color: #4a3600; }
-.badge-silver { background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%); color: #2a2a2a; }
+.badge-marquee { background: linear-gradient(135deg, #ff0080 0%, #ff4da6 100%); color: #fff; }
+.badge-a { background: linear-gradient(135deg, #00d4ff 0%, #0088ff 100%); color: #fff; }
+.badge-b { background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%); color: #0a1a0f; }
+.badge-c { background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%); color: #4a3600; }
 
 .team-name-cell {
   color: var(--color-text-muted);
@@ -939,6 +997,25 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+  
+  .header-controls {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .category-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .category-select {
+    flex: 1;
+  }
+  
+  .btn-draw {
+    width: 100%;
+    justify-content: center;
   }
   
   .history-actions {

@@ -1,4 +1,4 @@
-export const AUCTION_STORAGE_KEY = "AUCTION_STATE_V1";
+export const AUCTION_STORAGE_KEY = "AUCTION_STATE_V3";
 
 export const CATEGORY_ORDER = [
   "Marquee",

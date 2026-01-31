@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { CATEGORY_ORDER } from "../shared/constants";
 
 export default function AdminControl({
   auctionState,
   drawNextPlayer,
-  finalizeSale
+  finalizeSale,
+  changeCategory
 }) {
   const [teamId, setTeamId] = useState("");
   const [bid, setBid] = useState("");
@@ -26,10 +28,28 @@ export default function AdminControl({
           <span className="panel-icon">⚡</span>
           Auction Control
         </h2>
-        <button className="btn-draw" onClick={drawNextPlayer}>
-          <span className="btn-icon">🎲</span>
-          Draw Next Player
-        </button>
+        
+        <div className="header-controls">
+          <div className="category-selector">
+            <label className="category-selector-label">Category:</label>
+            <select
+              className="category-select"
+              value={auctionState.meta.currentCategory}
+              onChange={(e) => changeCategory(e.target.value)}
+            >
+              {CATEGORY_ORDER.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <button className="btn-draw" onClick={drawNextPlayer}>
+            <span className="btn-icon">🎲</span>
+            Draw Next Player
+          </button>
+        </div>
       </div>
 
       {!currentPlayer && (
